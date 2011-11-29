@@ -2,6 +2,8 @@ package models;
 
 import play.db.jpa.*;
 import play.data.validation.*;
+import play.libs.Codec;
+
 import javax.persistence.*;
 
 @Entity
@@ -17,7 +19,7 @@ public class User extends Model {
     @Required
     @MaxSize(15)
     @MinSize(5)
-    public String password;
+    public String passwordHash;
     
     @Required
     @MaxSize(100)
@@ -31,7 +33,7 @@ public class User extends Model {
    
     public User(String name, String password, String username) {
         this.name = name;
-        this.password = password;
+        this.passwordHash = Codec.hexMD5(password);
         this.username = username;
         this.email = email;
       //  this.isAdmin = isAdmin;

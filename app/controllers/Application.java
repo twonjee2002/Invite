@@ -38,8 +38,8 @@ public class Application extends Controller {
        public static void register(String myName, String myPassword) {
         render(myName, myPassword);
     }
-    public static void login(String username, String password) {
-        User user = User.find("byUsernameAndPassword", username, password).first();
+    public static void login(String username, String passwordHash) {
+        User user = User.find("byUsernameAndPassword", username, passwordHash).first();
         if(user != null) {
             session.put("user", user.username);
             flash.success("Welcome, " + user.name);
@@ -52,7 +52,7 @@ public class Application extends Controller {
         }
     public static void saveUser(@Valid User user, String verifyPassword, Mails mail) {
         validation.required(verifyPassword);
-        validation.equals(verifyPassword, user.password).message("Your password doesn't match");
+        validation.equals(verifyPassword, user.passwordHash).message("Your password doesn't match");
         if(validation.hasErrors()) {
             render("@register", user, verifyPassword);
         }
@@ -60,7 +60,7 @@ public class Application extends Controller {
         user.create();
         user.save();
         session.put("user", user.username);
-        flash.success("Welcome, " + user.name + "Please check ur mail");
+        flash.success("Welcome, " + user.name + " Please check your mail");
         Workshop.home();
     }
     public static void uploadPicture(Picture picture) {
@@ -69,9 +69,17 @@ public class Application extends Controller {
     }
     public static void getPicture(long id) {
         Picture picture = Picture.findById(id);
+        notFoundIfNull(picture);
         response.setContentTypeIfNotSet(picture.image.type());
         renderBinary(picture.image.get());
     }
+    public static void deletePicture(long id) {
+    	   final Picture picture = Picture.findById(id);
+    	   picture.image.getFile().delete();
+    	   picture.delete();
+    	   Workshop.design();
+    	}
+
 
     
         public static void logout() {

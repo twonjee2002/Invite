@@ -19,7 +19,7 @@ public class User extends Model {
     @Required
     @MaxSize(15)
     @MinSize(5)
-    public String passwordHash;
+    public String password;
     
     @Required
     @MaxSize(100)
@@ -33,7 +33,7 @@ public class User extends Model {
    
     public User(String name, String password, String username) {
         this.name = name;
-        this.passwordHash = Codec.hexMD5(password);
+        this.password = password;
         this.username = username;
         this.email = email;
       //  this.isAdmin = isAdmin;

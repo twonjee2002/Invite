@@ -38,8 +38,8 @@ public class Application extends Controller {
        public static void register(String myName, String myPassword) {
         render(myName, myPassword);
     }
-    public static void login(String username, String passwordHash) {
-        User user = User.find("byUsernameAndPassword", username, passwordHash).first();
+    public static void login(String username, String password) {
+        User user = User.find("byUsernameAndPassword", username, password).first();
         if(user != null) {
             session.put("user", user.username);
             flash.success("Welcome, " + user.name);
@@ -52,7 +52,7 @@ public class Application extends Controller {
         }
     public static void saveUser(@Valid User user, String verifyPassword, Mails mail) {
         validation.required(verifyPassword);
-        validation.equals(verifyPassword, user.passwordHash).message("Your password doesn't match");
+        validation.equals(verifyPassword, user.password).message("Your password doesn't match");
         if(validation.hasErrors()) {
             render("@register", user, verifyPassword);
         }

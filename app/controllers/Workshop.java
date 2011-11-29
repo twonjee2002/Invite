@@ -29,6 +29,9 @@ public class Workshop extends Application {
         public static void design(){
         	render();
         }
+        public static void invite(){
+        	render();
+        }
 }
     
 

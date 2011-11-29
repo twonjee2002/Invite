@@ -20,7 +20,7 @@ public class Mails extends Mailer {
    }
  
    public static void lostPassword(User user) {
-      String newpassword = user.passwordHash;
+      String newpassword = user.password;
      // addFrom("Robot <robot@thecompany.com>");
       setSubject("Your password has been reset");
       addRecipient(user.email);

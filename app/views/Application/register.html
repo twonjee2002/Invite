@@ -22,9 +22,9 @@
             <span class="error">${field.error}</span>
         </p>
     #{/field}
-    #{field 'user.passwordHash'}
+    #{field 'user.password'}
         <p class="${field.errorClass}">
-            <strong>Password:</strong> <input type="password" name="${field.name}" size="16" value="${user?.passwordHash}"> *
+            <strong>Password:</strong> <input type="password" name="${field.name}" size="16" value="${user?.password}"> *
             <span class="error">${field.error}</span>
         </p>
     #{/field}

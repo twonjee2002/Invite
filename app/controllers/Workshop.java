@@ -32,6 +32,12 @@ public class Workshop extends Application {
         public static void invite(){
         	render();
         }
+        public static void index(){
+        	render();
+        }
+        public static void getPicture(){
+        	render();
+        }
 }
     
 

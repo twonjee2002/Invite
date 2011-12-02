@@ -63,12 +63,12 @@ public class Application extends Controller {
         flash.success("Welcome, " + user.name + " Please check your mail");
         Workshop.home();
     }
-    public static void uploadPicture(Picture picture) {
+      public static void uploadPicture(Picture picture) {
         picture.save();
         Workshop.design();
     }
     public static void getPicture(long id) {
-        Picture picture = Picture.findById(id);
+    	Picture picture = Picture.findById(id);
         notFoundIfNull(picture);
         response.setContentTypeIfNotSet(picture.image.type());
         renderBinary(picture.image.get());
